@@ -1,0 +1,181 @@
+[package]
+title = "Isaac Sim Python"
+description = "A trimmed down app for use with python providing zero frame delay"
+version = "4.5.0"
+execFile = "isaac-sim.zero_delay"
+keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in UI with "experience" filter
+
+
+[dependencies]
+"isaacsim.exp.base" = {}
+
+[settings]
+app.name = "Isaac-Sim"
+app.version = "4.5.0"
+app.hydraEngine.waitIdle = true
+app.updateOrder.checkForHydraRenderComplete = 1000
+app.vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+]
+
+[settings.exts."omni.kit.registry.nucleus"]
+registries = [
+	{ name = "kit/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/106/shared" },
+	{ name = "kit/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/${kit_version_short}/${kit_git_hash}" },
+	{ name = "kit/community", url = "https://dw290v42wisod.cloudfront.net/exts/kit/community" },
+]
+
+
+########################################################################################################################
+# BEGIN GENERATED PART (Remove from 'BEGIN' to 'END' to regenerate)
+########################################################################################################################
+
+# Kit SDK Version: 106.5.0+release.162521.d02c707b.gl
+
+# Exact Version dependencies:
+# 	omni.convexdecomposition-106.5.7
+# 	omni.kit.property.physx-106.5.7
+# 	omni.kvdb-106.5.7
+# 	omni.localcache-106.5.7
+# 	omni.physics.tensors-106.5.7
+# 	omni.physx-106.5.7
+# 	omni.physx.camera-106.5.7
+# 	omni.physx.cct-106.5.7
+# 	omni.physx.commands-106.5.7
+# 	omni.physx.cooking-106.5.7
+# 	omni.physx.demos-106.5.7
+# 	omni.physx.foundation-106.5.7
+# 	omni.physx.graph-106.5.7
+# 	omni.physx.stageupdate-106.5.7
+# 	omni.physx.supportui-106.5.7
+# 	omni.physx.telemetry-106.5.7
+# 	omni.physx.ui-106.5.7
+# 	omni.physx.vehicle-106.5.7
+# 	omni.usd.schema.forcefield-106.5.7
+# 	omni.usd.schema.physx-106.5.7
+# 	omni.usdphysics-106.5.7
+# 	omni.usdphysics.ui-106.5.7
+# 	omni.warp.core-1.5.0
+
+# Version lock for all dependencies:
+[settings.app.exts]
+enabled = [
+	"isaacsim.app.about-2.0.7",
+	"isaacsim.asset.browser-1.3.4",
+	"isaacsim.asset.importer.mjcf-2.3.4",
+	"isaacsim.asset.importer.urdf-2.3.11",
+	"isaacsim.core.api-4.2.17",
+	"isaacsim.core.cloner-1.3.4",
+	"isaacsim.core.deprecation_manager-0.2.2",
+	"isaacsim.core.nodes-2.1.5",
+	"isaacsim.core.prims-0.3.7",
+	"isaacsim.core.simulation_manager-0.3.4",
+	"isaacsim.core.throttling-2.0.2",
+	"isaacsim.core.utils-2.2.8",
+	"isaacsim.core.version-2.0.2",
+	"isaacsim.cortex.behaviors-2.0.3",
+	"isaacsim.cortex.framework-1.0.2",
+	"isaacsim.examples.browser-0.1.8",
+	"isaacsim.gui.components-1.0.9",
+	"isaacsim.gui.menu-2.0.9",
+	"isaacsim.gui.property-1.0.4",
+	"isaacsim.replicator.behavior-1.0.8",
+	"isaacsim.replicator.domain_randomization-1.0.2",
+	"isaacsim.replicator.examples-1.1.2",
+	"isaacsim.replicator.writers-1.0.1",
+	"isaacsim.robot.manipulators-3.0.4",
+	"isaacsim.robot.manipulators.examples-1.0.3",
+	"isaacsim.robot.policy.examples-4.0.3",
+	"isaacsim.robot.schema-3.1.3",
+	"isaacsim.robot.surface_gripper-2.0.6",
+	"isaacsim.robot.wheeled_robots-4.0.4",
+	"isaacsim.robot_motion.lula-4.0.4",
+	"isaacsim.robot_motion.lula_test_widget-1.0.5",
+	"isaacsim.robot_motion.motion_generation-8.0.6",
+	"isaacsim.sensors.camera-0.2.9",
+	"isaacsim.sensors.physics-0.3.6",
+	"isaacsim.sensors.physx-2.2.5",
+	"isaacsim.sensors.rtx-13.6.4",
+	"isaacsim.simulation_app-2.4.2",
+	"isaacsim.storage.native-1.0.6",
+	"isaacsim.util.debug_draw-2.0.3",
+	"omni.anim.curve.core-1.2.0",
+	"omni.graph.action-1.120.0",
+	"omni.graph.action_nodes-1.40.1",
+	"omni.graph.nodes-1.162.1",
+	"omni.graph.scriptnode-1.40.1",
+	"omni.graph.ui_nodes-1.40.1",
+	"omni.graph.visualization.nodes-2.1.1",
+	"omni.isaac.asset_browser-1.0.2",
+	"omni.isaac.assets_check-0.3.9",
+	"omni.isaac.cloner-1.0.2",
+	"omni.isaac.core-4.0.3",
+	"omni.isaac.core_archive-2.3.3",
+	"omni.isaac.core_nodes-2.0.2",
+	"omni.isaac.cortex-1.0.2",
+	"omni.isaac.cortex.sample_behaviors-2.0.2",
+	"omni.isaac.dynamic_control-1.3.16",
+	"omni.isaac.franka-1.0.2",
+	"omni.isaac.kit-2.0.3",
+	"omni.isaac.lula-4.0.2",
+	"omni.isaac.lula_test_widget-1.0.2",
+	"omni.isaac.manipulators-3.0.3",
+	"omni.isaac.menu-1.0.2",
+	"omni.isaac.ml_archive-2.1.2",
+	"omni.isaac.motion_generation-8.0.2",
+	"omni.isaac.nucleus-1.0.3",
+	"omni.isaac.quadruped-3.0.2",
+	"omni.isaac.range_sensor-4.0.2",
+	"omni.isaac.sensor-13.0.3",
+	"omni.isaac.surface_gripper-2.0.2",
+	"omni.isaac.universal_robots-1.0.2",
+	"omni.isaac.utils-2.0.2",
+	"omni.isaac.version-2.0.2",
+	"omni.isaac.wheeled_robots-3.0.3",
+	"omni.isaac.window.about-2.0.2",
+	"omni.kit.asset_converter-2.8.3",
+	"omni.kit.browser.core-2.3.11",
+	"omni.kit.browser.folder.core-1.10.1",
+	"omni.kit.graph.delegate.default-1.2.2",
+	"omni.kit.graph.editor.core-1.5.3",
+	"omni.kit.graph.usd.commands-1.3.1",
+	"omni.kit.loop-isaac-1.2.2",
+	"omni.kit.menu.stage-1.2.5",
+	"omni.kit.property.isaac-1.0.2",
+	"omni.kit.scripting-106.5.2",
+	"omni.kit.tool.asset_importer-2.12.2",
+	"omni.kit.viewport.menubar.lighting-106.0.2",
+	"omni.kit.widget.material_preview-1.0.16",
+	"omni.kit.widget.zoombar-1.0.5",
+	"omni.kit.window.material_graph-1.8.19",
+	"omni.physx.bundle-106.5.7",
+	"omni.physx.tensors-106.5.7",
+	"omni.pip.cloud-1.1.7",
+	"omni.pip.compute-1.4.5",
+	"omni.replicator.core-1.11.35",
+	"omni.replicator.isaac-2.0.3",
+	"omni.replicator.replicator_yaml-2.0.10",
+	"omni.sensors.nv.common-2.5.0-coreapi",
+	"omni.sensors.nv.ids-1.4.0-coreapi",
+	"omni.sensors.nv.lidar-2.6.3-coreapi",
+	"omni.sensors.nv.materials-1.4.0-coreapi",
+	"omni.sensors.nv.radar-2.6.1-coreapi",
+	"omni.sensors.nv.wpm-2.4.0-coreapi",
+	"omni.sensors.tiled-0.0.6",
+	"omni.usd.metrics.assembler-106.5.0",
+	"omni.usd.metrics.assembler.ui-106.5.0",
+	"omni.usd.schema.isaac-3.0.2",
+	"omni.usd.schema.metrics.assembler-106.5.0",
+	"omni.warp-1.5.0",
+	"semantics.schema.editor-0.3.10",
+	"semantics.schema.property-1.0.5",
+]
+
+########################################################################################################################
+# END GENERATED PART
+########################################################################################################################

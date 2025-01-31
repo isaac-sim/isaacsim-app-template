@@ -1,0 +1,11 @@
+{
+    "argv": ["AUTOMATICALLY_REPLACED", "-m", "ipykernel_launcher", "-f", "{connection_file}"],
+    "display_name": "Isaac Sim Python 3",
+    "language": "python",
+    "env": {
+        "ISAAC_JUPYTER_KERNEL": "1"
+    },
+    "metadata": {
+        "debugger": true
+    }
+}

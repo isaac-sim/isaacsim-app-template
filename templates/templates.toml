@@ -1,0 +1,125 @@
+# -- Application templates --
+[templates."isaacsim.exp.template.base"]
+class = "ApplicationTemplate"
+name = "Minimal Sim Application"
+url = "."
+subpath = "apps/isaacsim/isaacsim.exp.template.base.kit"
+variables.application_name = "isaacsim.exp.template.base"
+variables.application_display_name = "Base Simulator Template"
+variables.version = "0.1.0"
+
+[[templates."isaacsim.exp.template.base".applications]]
+template = "isaacsim.exp.template.fabric"
+type = "fabric"
+
+[[templates."isaacsim.exp.template.base".applications]]
+template = "isaacsim.exp.template.streaming"
+type = "streaming"
+
+[[templates."isaacsim.exp.template.base".applications]]
+template = "isaacsim.exp.template.zero_delay"
+type = "zero_delay"
+
+[[templates."isaacsim.exp.template.base".applications]]
+template = "isaacsim.exp.template.ros2"
+type = "ros2"
+
+[[templates."isaacsim.exp.template.base".applications]]
+template = "isaacsim.exp.template.replicator"
+type = "replicator"
+
+[templates."isaacsim.exp.template.full"]
+class = "ApplicationTemplate"
+name = "Full Sim Application"
+url = "."
+subpath = "apps/isaacsim/isaacsim.exp.template.full.kit"
+variables.application_name = "isaacsim.exp.template.full"
+variables.application_display_name = "Full Simulator Template"
+variables.version = "0.1.0"
+
+[[templates."isaacsim.exp.template.full".applications]]
+template = "isaacsim.exp.template.fabric"
+type = "fabric"
+
+[[templates."isaacsim.exp.template.full".applications]]
+template = "isaacsim.exp.template.streaming"
+type = "streaming"
+
+[[templates."isaacsim.exp.template.full".applications]]
+template = "isaacsim.exp.template.zero_delay"
+type = "zero_delay"
+
+
+# -- Application Layer templates --
+[templates."isaacsim.exp.template.fabric"]
+class = "ApplicationLayerTemplate"
+name = "Fabric Enabled Config"
+url = "."
+subpath = "apps/isaacsim_configs/isaacsim.exp.template.fabric.kit"
+variables.version = "0.1.0"
+
+[templates."isaacsim.exp.template.zero_delay"]
+class = "ApplicationLayerTemplate"
+name = "Zero Delay"
+url = "."
+subpath = "apps/isaacsim_configs/isaacsim.exp.template.zero_delay.kit"
+variables.version = "0.1.0"
+
+[templates."isaacsim.exp.template.ros2"]
+class = "ApplicationLayerTemplate"
+name = "ROS2"
+url = "."
+subpath = "apps/isaacsim_configs/isaacsim.exp.template.ros2.kit"
+variables.version = "0.1.0"
+
+[templates."isaacsim.exp.template.replicator"]
+class = "ApplicationLayerTemplate"
+name = "Replicator"
+url = "."
+subpath = "apps/isaacsim_configs/isaacsim.exp.template.replicator.kit"
+variables.version = "0.1.0"
+
+[templates."isaacsim.exp.template.streaming"]
+class = "ApplicationLayerTemplate"
+name = "Streaming"
+url = "."
+subpath = "apps/isaacsim_configs/isaacsim.exp.template.streaming.kit"
+variables.version = "0.1.0"
+
+[templates."omni_ovc_streaming"]
+class = "ApplicationLayerTemplate"
+name = "Omniverse Cloud Streaming"
+url = "."
+subpath = "apps/streaming_configs/ovc_stream.kit"
+variables.version = "0.1.0"
+
+
+# -- Extension templates --
+[templates."basic_python_extension"]
+class = "ExtensionTemplate"
+name = "Basic Python Extension"
+url = "."
+subpath = "extensions/basic_python/template"
+variables.extension_name = "my_company.my_python_extension"
+variables.extension_display_name = "My Python Extension"
+variables.version = "0.1.0"
+
+
+[templates."basic_cpp_extension"]
+class = "ExtensionTemplate"
+name = "Basic C++ Extension"
+url = "."
+subpath = "extensions/basic_cpp/template"
+variables.extension_name = "my_company.my_cpp_extension"
+variables.extension_display_name = "My C++ Extension"
+variables.version = "0.1.0"
+
+
+[templates."basic_python_ui_extension"]
+class = "ExtensionTemplate"
+name = "Python UI Extension"
+url = "."
+subpath = "extensions/python_ui/template"
+variables.extension_name = "my_company.my_python_ui_extension"
+variables.extension_display_name = "My Python UI Extension"
+variables.version = "0.1.0"

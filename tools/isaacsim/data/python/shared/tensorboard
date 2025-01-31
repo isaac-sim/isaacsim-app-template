@@ -1,0 +1,10 @@
+import re
+import sys
+try:
+    from tensorboard.main import run_main
+except ImportError:
+    print("Tensorboard is not installed, please run ./python.sh -m pip install -r requirements.txt")
+    exit()
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(run_main())

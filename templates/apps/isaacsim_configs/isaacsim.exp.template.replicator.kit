@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[package]
+title = "{{ application_display_name }} Replicator"
+version = "{{ version }}"
+description = "Replicator configuration of {{ application_display_name }}"
+keywords = ["experience", "app", "dev", "replicator"]
+template_name = "isaacsim.exp.template.replicator"
+
+[dependencies]
+"{{ application_name }}" = {}  # Application Kit File
+"isaacsim.replicator.behavior" = {}
+"isaacsim.replicator.behavior.ui" = {}
+"isaacsim.replicator.domain_randomization" = {}
+"isaacsim.replicator.examples" = {}
+"isaacsim.replicator.scene_blox" = {}
+"isaacsim.replicator.synthetic_recorder" = {}
+"isaacsim.replicator.writers" = {}
+
+[settings]
+app.vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+]

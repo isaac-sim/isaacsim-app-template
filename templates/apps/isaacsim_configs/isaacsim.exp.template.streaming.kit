@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[package]
+title = "{{ application_display_name }} Streaming"
+version = "{{ version }}"
+description = "Streaming configuration of {{ application_display_name }}"
+keywords = ["experience", "app", "dev", "stremaing"]
+template_name = "isaacsim.exp.template.streaming"
+
+[dependencies]
+"{{ application_name }}" = {}  # Application Kit File
+
+"omni.kit.livestream.core" = { version = "6.1.0", exact = true }
+"omni.kit.livestream.webrtc" = { version = "6.0.0", exact = true }
+"omni.kit.streamsdk.plugins" = { version = "6.1.7", exact = true }
+
+[settings]
+app.vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+
+[settings.app.window]
+hideUi = false
+drawMouse = true
+enabled = false
+
+[settings.app.livestream]
+allowResize = false
+outDirectory = "${data}"
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+]
