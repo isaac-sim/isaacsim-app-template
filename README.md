@@ -91,12 +91,12 @@ Standalone python scripts are also supported by default and can be executed like
 
 **Linux:**
 ```bash
-./_build/linux-x86_64/release/python.sh standalone_examples/hello_world.py
+./_build/linux-x86_64/release/python.sh source/standalone_examples/hello_world.py
 ```
 
 **Windows:**
 ```powershell
-.\_build\windows-x86_64\release\python.bat standalone_examples\hello_world.py
+.\_build\windows-x86_64\release\python.bat source\standalone_examples\hello_world.py
 ```
 
 ### 4. Creating Templates
