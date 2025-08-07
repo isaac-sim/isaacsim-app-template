@@ -18,21 +18,18 @@ template_name = "isaacsim.exp.template.streaming"
 [dependencies]
 "{{ application_name }}" = {}  # Application Kit File
 
-"omni.kit.livestream.core" = { version = "6.1.0", exact = true }
-"omni.kit.livestream.webrtc" = { version = "6.0.0", exact = true }
-"omni.kit.streamsdk.plugins" = { version = "6.1.7", exact = true }
+"omni.services.livestream.nvcf" = {}
 
 [settings]
 app.vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+app.enableDeveloperWarnings = false     # disable developer warnings to reduce log noise
 
-[settings.app.window]
-hideUi = false
-drawMouse = true
-enabled = false
+app.window.hideUi = false
+app.window.drawMouse = true
+app.window.enabled = false
 
-[settings.app.livestream]
-allowResize = false
-outDirectory = "${data}"
+app.livestream.allowResize = false
+app.livestream.outDirectory = "${data}"
 
 [settings.app.exts.folders]
 '++' = [

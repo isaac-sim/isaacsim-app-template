@@ -4,6 +4,12 @@
   <img src="readme-assets/kit_app_template_banner.png" width=100% />
 </p>
 
+## :memo: Feature Branch Information
+**This repository is based on a Feature Branch of the Omniverse Kit SDK.** Feature Branches are regularly updated and best suited for testing and prototyping.
+For stable, production-oriented development, please use the [Production Branch of the Kit SDK on NVIDIA GPU Cloud (NGC)](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/omniverse/collections/production_branch_december_2024).
+
+[Omniverse Release Information](https://docs.omniverse.nvidia.com/dev-overview/latest/omniverse-releases.html#)
+
 
 ## Overview
 
@@ -20,14 +26,16 @@ This repository provides [Isaac Sim](https://docs.isaacsim.omniverse.nvidia.com/
 
 Applications that contain `base` are minimal Isaac Sim applications that do not contain all of the GUI utilities. Applications that contain `full` enable a more complete set of extensions by default.
 
-| Kit experience app file          | Description                                                                                            |
-|----------------------------------|--------------------------------------------------------------------------------------------------------|
-| isaacsim.exp.base.kit            | Base .kit file contains most of the extensions and settings used by other .kit files                                                         |
-| isaacsim.exp.base.xr.vr.kit      | Base + VR extensions                                                                                                                         |
-| isaacsim.exp.base.zero_delay.kit | Base + settings to force zero delay between rendering and simulation at a cost of reduced performance.                                       |
-| isaacsim.exp.full.kit            | Full Isaac Sim application, mirrors `isaac-sim.sh` from Isaac Sim binary installs                                                            |
-| isaacsim.exp.full.fabric.kit     | Full + Fabric enabled for simulation, in certain cases this will improve performance at the cost of disabling updates from simulation to USD |
-| isaacsim.exp.full.streaming.kit  | Full + Streaming enabled                                                                                                                     |
+| Kit experience app file                                      | Description                                                                                                                                  |
+|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| isaacsim.exp.base.kit                                        | Base .kit file contains most of the extensions and settings used by other .kit files                                                         |
+| isaacsim.exp.base.xr.vr.kit                                  | Base + VR extensions                                                                                                                         |
+| isaacsim.exp.base.zero_delay.kit                             | Base + settings to force zero delay between rendering and simulation at a cost of reduced performance.                                       |
+| isaacsim.exp.full.kit                                        | Full Isaac Sim application, mirrors `isaac-sim.sh` from Isaac Sim binary installs                                                            |
+| isaacsim.exp.full.fabric.kit                                 | Full + Fabric enabled for simulation, in certain cases this will improve performance at the cost of disabling updates from simulation to USD |
+| isaacsim.exp.full.streaming.kit                              | Full + Streaming enabled                                                                                                                     |
+| isaacsim.exp.action_and_event_data_generation.base.kit       | Base + Action and Event SDG headless extensions                                                                                              |
+| isaacsim.exp.action_and_event_data_generation.full.kit       | Base + Action and Event SDG GUI extensions + other SDG utilities                                                                             |
 
 These applications should be used as a quick way for users to start using Isaac Sim, If you are interested in building your own applications continue to the next section.
 
@@ -91,12 +99,12 @@ Standalone python scripts are also supported by default and can be executed like
 
 **Linux:**
 ```bash
-./_build/linux-x86_64/release/python.sh standalone_examples/hello_world.py
+./_build/linux-x86_64/release/python.sh _build/linux-x86_64/release/standalone_examples/hello_world.py
 ```
 
 **Windows:**
 ```powershell
-.\_build\windows-x86_64\release\python.bat standalone_examples\hello_world.py
+.\_build\windows-x86_64\release\python.bat _build\windows-x86_64\release\standalone_examples\hello_world.py
 ```
 
 ### 4. Creating Templates
@@ -120,11 +128,29 @@ Enhance Omniverse capabilities with extension templates to create new extensions
 
 - **[Basic Python](./templates/extensions/basic_python)**: The minimal definition of an Omniverse Python Extension.
 
+- **[Python UI](./templates/extensions/python_ui)**: An extension that provides an easily extendable Python-based user interface.
+
 - **[Basic C++](./templates/extensions/basic_cpp)**: The minimal definition of an Omniverse C++ Extension.
+
+- **[Basic C++ w/ Python Bindings](./templates/extensions/basic_python_binding)**: The minimal definition of an Omniverse C++ Extension that also exposes a Python interface via Pybind11.
 
    **Note for Windows C++ Developers** : This template requires `"platform:windows-x86_64".enabled` and `link_host_toolchain` within the `repo.toml` file be set to `true`. For additional C++ configuration information [see here](readme-assets/additional-docs/windows_developer_configuration.md).
 
-- **[Python UI](./templates/extensions/python_ui)**: An extension that provides an easily extendable Python-based user interface.
+
+## Application Streaming
+
+The Omniverse Platform supports streaming Kit-based applications directly to a web browser. You can either manage your own deployment or use an NVIDIA-managed service:
+
+### Self-Managed
+- **Omniverse Kit App Streaming :** A reference implementation on GPU-enabled Kubernetes clusters for complete control over infrastructure and scalability.
+
+### NVIDIA-Managed
+- **Omniverse Cloud (OVC):** Offloads hardware, streaming, and network complexities for secure, large scale deployments.
+
+- **Graphics Delivery Network (GDN):** Streams high-fidelity 3D content worldwide with just a shared URL.
+
+[Configuring and packaging streaming-ready Kit applications](readme-assets/additional-docs/kit_app_streaming_config.md)
+
 
 
 ## Additional Resources
@@ -158,23 +184,8 @@ Enhance Omniverse capabilities with extension templates to create new extensions
 
     Or if launching an app via the .sh/.bat directly appent ```--reset-user``` directly
 
-- Run the following if you see errors similar to : ```[Error] [omni.ui] Failed to upload UI Image```
-  ```
-  git lfs install
-  git lfs pull
-  ```
-  This will ensure that all lfs content is pulled correctly
-
-- If you see the following errors, close and open a new terminal
-  ```
-  [Error] [carb.livestream-rtc.plugin] Stream Server: starting the server failed, 0x800B1002
-  [Error] [carb.livestream-rtc.plugin] Could not initialize streaming components
-  [Error] [carb.livestream-rtc.plugin] Couldn't initialize the capture device.
-  ```
-
-## License
-
-Development using the Omniverse Kit SDK is subject to the licensing terms detailed [here](https://docs.omniverse.nvidia.com/dev-guide/latest/common/NVIDIA_Omniverse_License_Agreement.html).
+## Governing Terms
+The software and materials are governed by the [NVIDIA Software License Agreement](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/) and the [Product-Specific Terms for NVIDIA Omniverse](https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-omniverse/).
 
 ## Data Collection
 The Omniverse Kit SDK collects anonymous usage data to help improve software performance and aid in diagnostic purposes. Rest assured, no personal information such as user email, name or any other field is collected.

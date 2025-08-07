@@ -22,6 +22,8 @@ template_name = "isaacsim.exp.template.zero_delay"
 app.hydraEngine.waitIdle = true
 app.updateOrder.checkForHydraRenderComplete = 1000
 app.vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+app.enableDeveloperWarnings = false # disable developer warnings to reduce log noise
+app.exts.isaacsim.ros2.bridge.publish_multithreading_disabled = true # disable multithreading for ros2 bridge to reduce latency
 
 [settings.app.exts.folders]
 '++' = [

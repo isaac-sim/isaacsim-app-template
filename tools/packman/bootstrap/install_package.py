@@ -142,7 +142,7 @@ def generate_sha256_for_file(file_path: Union[str, os.PathLike]) -> str:
 
 
 def install_common_module(package_path, install_path):
-    COMMON_SHA256 = "b2bb0616a8a16ab1a33aedcccd18ddc958747b9700299b70cddfde0106a56e0f"
+    COMMON_SHA256 = "dbd5545730841001a0601588d5b87d0fd68b90a25da30af3c9b157f910b6a66b"
     package_sha256 = generate_sha256_for_file(package_path)
     if package_sha256 != COMMON_SHA256:
         raise RuntimeError(

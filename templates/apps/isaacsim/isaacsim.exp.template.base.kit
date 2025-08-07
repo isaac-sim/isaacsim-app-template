@@ -22,6 +22,10 @@ template_name = "sim_base"
 "isaacsim.core.api" = {}
 "isaacsim.core.cloner" = {}
 "isaacsim.core.deprecation_manager" = { order = -100 }
+"isaacsim.core.experimental.materials" = {}
+"isaacsim.core.experimental.objects" = {}
+"isaacsim.core.experimental.prims" = {}
+"isaacsim.core.experimental.utils" = {}
 "isaacsim.core.nodes" = {}
 "isaacsim.core.simulation_manager" = {}
 "isaacsim.core.throttling" = {}
@@ -30,7 +34,9 @@ template_name = "sim_base"
 "isaacsim.cortex.behaviors" = {}
 "isaacsim.cortex.framework" = {}
 "isaacsim.gui.menu" = {}
+"isaacsim.gui.content_browser" = {}
 "isaacsim.gui.property" = {}
+"isaacsim.gui.sensors.icon" = {}
 "isaacsim.replicator.behavior" = {}
 "isaacsim.replicator.domain_randomization" = {}
 "isaacsim.replicator.writers" = {}
@@ -87,7 +93,6 @@ template_name = "sim_base"
 # Isaac Sim Extra
 "isaacsim.asset.importer.mjcf" = {}
 "isaacsim.asset.importer.urdf" = {}
-"omni.physx.bundle" = {}
 "omni.physx.tensors" = {}
 "omni.replicator.core" = {}
 "omni.replicator.replicator_yaml" = {}
@@ -97,6 +102,8 @@ template_name = "sim_base"
 
 # Kit based editor extensions
 "omni.anim.curve.core" = {}
+"omni.anim.graph.schema" = {}
+"omni.anim.navigation.schema" = {}
 "omni.graph.action" = {}
 "omni.graph.core" = {}
 "omni.graph.nodes" = {}
@@ -111,8 +118,6 @@ template_name = "sim_base"
 "omni.kit.material.library" = {}
 "omni.kit.menu.common" = { order = 1000 }
 "omni.kit.menu.create" = {}
-"omni.kit.menu.edit" = {}
-"omni.kit.menu.file" = {}
 "omni.kit.menu.stage" = {}
 "omni.kit.menu.utils" = {}
 "omni.kit.primitive.mesh" = {}
@@ -136,17 +141,15 @@ template_name = "sim_base"
 "omni.kit.window.stage" = {}
 "omni.kit.window.status_bar" = {}
 "omni.kit.window.toolbar" = {}
-"omni.physx.stageupdate" = {}
+"omni.physics.physx" = {}
+"omni.physics.stageupdate" = {}
 "omni.rtx.settings.core" = {}
 "omni.uiaudio" = {}
 "omni.usd.metrics.assembler.ui" = {}
+"omni.usd.schema.flow" = {}
 "omni.usd.schema.metrics.assembler" = {}
 "omni.warp.core" = {}
-
-# Extensions normally enabled in kit base editor
-# "omni.activity.profiler" = {}
-# "omni.activity.pump" = {}
-# "omni.kit.viewport.ready" = {}
+"omni.hydra.usdrt_delegate" = {}
 
 [settings.app.window]
 title = "{{ application_display_name }}"
@@ -165,15 +168,18 @@ exts."omni.kit.viewport.window".windowMenu.entryCount = 2 # Allow user to create
 exts."omni.kit.viewport.window".windowMenu.label = "" # Put Viewport menuitem under Window menu
 exts."omni.rtx.window.settings".window_menu = "Window" # Where to put the render settings menuitem
 exts."omni.usd".locking.onClose = false # reduce time it takes to close/create stage
+exts."omni.ui".raster.default_rasterpolicy_enabled = true # Improve UI rendering performance
+exts."omni.kit.widget.graph".raster_nodes = true # Improve UI rendering performance
 renderer.asyncInit = true # Don't block while renderer inits
 renderer.gpuEnumeration.glInterop.enabled = false # Improves startup speed.
 rtx-transient.dlssg.enabled = false # DLSSG frame generation is not compatible with synthetic data generation
 rtx.hydra.mdlMaterialWarmup = true # start loading the MDL shaders needed before any delegate is actually created.
-rtx.post.dlss.execMode = 0 # Set the DLSS model can be 0 (Performance), 1 (Balanced), 2 (Quality), or 3 (Auto)
+rtx.post.dlss.execMode = 3 # Set the DLSS model can be 0 (Performance), 1 (Balanced), 2 (Quality), or 3 (Auto)
 omni.replicator.asyncRendering = false # Async rendering must be disabled for SDG
 exts."omni.kit.test".includeTests = ["*isaac*"] # Add isaac tests to test runner
 foundation.verifyOsVersion.enabled = false
 physics.autoPopupSimulationOutputWindow = false
+exts."semantics_schema_editor".hideWindowOnStartup = true
 
 # Disable for base application
 [settings."filter:platform"."windows-x86_64"]
@@ -212,6 +218,12 @@ hangDetector.enabled = true
 hangDetector.timeout = 120
 settings.fabricDefaultStageFrameHistoryCount = 3 # needed for omni.syntheticdata TODO105 still true?
 settings.persistent = true                       # settings are persistent for this app
+useFabricSceneDelegate = true                    # use FSD by default for better performance
+enableDeveloperWarnings = false                  # disable developer warnings to reduce log noise
+runLoops.main.rateLimitEnabled = false           # Disable rate limiting, simulation runs as fast as possible
+runLoops.main.manualModeEnabled = true           # Enable manual mode, dt is fixed at requested rate
+player.useFixedTimeStepping = false              # Disable fixed time stepping, dt is controlled by loop runner
+events.qualifiedNames = true                     # Enable qualified names for carb-events-2.0 observation api
 
 vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
 ### async rendering settings
@@ -273,3 +285,16 @@ simulation.defaultMetersPerUnit = 1.0 # Meters default
 omni.replicator.captureOnPlay = true
 
 
+[settings.persistent.isaac]
+asset_root.default = "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0"
+[settings.exts."isaacsim.asset.browser"]
+folders = [
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Robots",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Environments",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/IsaacLab",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Materials",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/People",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Props",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Samples",
+    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Sensors",
+]

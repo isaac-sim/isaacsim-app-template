@@ -19,8 +19,8 @@ template_name = "isaacsim.exp.template.fabric"
 "{{ application_name }}" = {}  # Application Kit File
 
 [settings]
-app.useFabricSceneDelegate = false
 app.vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+app.enableDeveloperWarnings = false # disable developer warnings to reduce log noise
 
 [settings.persistent]
 omnigraph.updateToUsd = false

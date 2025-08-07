@@ -6,7 +6,7 @@ root = repo_build.get_abs_path(".")
 
 -- Run repo_kit_tools premake5-kit that includes a bunch of Kit-friendly tooling configuration.
 kit = require("_repo/deps/repo_kit_tools/kit-template/premake5-kit")
-kit.setup_all()
+kit.setup_all({ cppdialect = "C++17" })
 
 
 -- Registries config for testing
@@ -31,4 +31,7 @@ define_app("isaacsim.exp.base.xr.vr.kit")
 define_app("isaacsim.exp.base.zero_delay.kit")
 define_app("isaacsim.exp.full.fabric.kit")
 define_app("isaacsim.exp.full.kit")
-define_app("isaacsim.exp.full.streaming.kit")
+define_app("isaacsim.exp.full.streaming.kit", {extra_args = "--no-window"})
+define_app("isaacsim.exp.action_and_event_data_generation.base.kit")
+define_app("isaacsim.exp.action_and_event_data_generation.full.kit")
+

@@ -1,8 +1,68 @@
 # Changelog
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [107.3.0] - 2025-06-03
 
-## [106.5.0] - 2024-12-18
+### Added
+- Added `repo template modify` tooling enabling developers to add Template Layers to existing applications created with 107.3 or newer.
+
+### Changed
+- Updated to `Kit 107.3.0`
+  - [Kit 107.3 Release Notes](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/107_3.html)
+  - [Kit 107.3 Release Highlights](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/107_3_highlights.html)
+- Updated packman version to 7.29 to address customer issues with network restrictions [Issue #80](https://github.com/NVIDIA-Omniverse/kit-app-template/issues/80)
+
+## [107.2.0] - 2025-05-05
+
+### Added
+- Added tooltip information to the VSCode debug extensions to clarify usage.
+- Added tooling checks for path whitespace and OneDrive paths to improve developer experience.
+
+### Changed
+- Updated to `Kit 107.2.0`
+  - [Kit 107.2 Release Notes](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/107_2.html)
+  - [Kit 107.2 Release Highlights](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/107_2_highlights.html)
+- Remove hard .git dependency from tooling
+- Exclude `_repo` from packaging operations.
+
+### Fixed
+- Fixed nondeterministic tool loading behavior raised in [Issue #65](https://github.com/NVIDIA-Omniverse/kit-app-template/issues/65)
+- Addressed spelling errors raised in [Issue #63](https://github.com/NVIDIA-Omniverse/kit-app-template/issues/63)
+- Addressed default repository definition causing issues with bootstrapping thin packages from [Issue #70](https://github.com/NVIDIA-Omniverse/kit-app-template/issues/70)
+
+
+## [107.0.3] - 2025-03-26
+
+### Fixed
+- Fixed issues with run time available registries by adding them directly to `.kit` templates
+- Fixed issues with test time available registries by adding user.toml registry configurations
+
+## [107.0.3] - 2025-03-20
+
+### Added
+- Added the ability select of application layers (streaming configurations) individually during templating
+- Added a dedicated streaming configuration for NVCF based Omniverse Cloud (OVC) deployments
+- Added C++ With Python Extension Template and Documentation
+- Added streaming application creation and configuration documentation
+- Added Developer Bundle extension by default to Base Editor, Composer, and Explorer templates
+- Added an exclusion for Developer Bundle on streaming application layers
+
+### Changed
+- Updated to `Kit 107.0.3`
+  - [Kit 107.0 Release Notes](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/107_0.html)
+  - [Kit 107.0 Release Highlights](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/107_0_highlights.html)
+  - Updated repo tooling UX to clarify tool use and improve user experience
+  - Changed previous Omniverse Cloud (OVC) streaming configuration to Omniverse Cloud Streaming (Legacy)
+  - Updated to `Cad Converter 203.0.0` Release
+    - [Cad Converter Release Notes](https://docs.omniverse.nvidia.com/extensions/latest/ext_cad-converter/release-notes.html)
+  - Moved extension `type` declaration to the extension definition section within the templates.toml file
+  - Removed `omni.usd.fileformat.sbasar` and `omni.kit.property.sbsar` extensions from the USD Composer Template kit file. The extensions will be available at a later date.
+
+### Fixed
+- Fixed Windows long path issues during `repo package`
+
+
+## [106.5.0] - 2024-12-12
 
 ### Added
 - Added `app.environment` name setting for all kit file templates
@@ -14,6 +74,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Updated to `Kit 106.5.0`
   - [Kit 106.5 Release Notes](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/106_5.html)
   - [Kit 106.5 Release Highlights](https://docs.omniverse.nvidia.com/dev-guide/latest/release-notes/106_5_highlights.html)
+- Updated Asset browser URLs
 - Optimized OVC streaming file kit settings for OVC streaming deployments
 
 ### Fixed

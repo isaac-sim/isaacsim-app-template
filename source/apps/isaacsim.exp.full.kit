@@ -1,7 +1,7 @@
 [package]
 title = "Isaac Sim Full"
 description = "Full Omniverse Isaac Sim Application"
-version = "4.5.0"
+version = "5.0.0"
 execFile = "isaac-sim"
 keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in UI with "experience" filter
 
@@ -14,11 +14,13 @@ keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in
 "isaacsim.asset.gen.omap" = {}
 "isaacsim.asset.gen.omap.ui" = {}
 "isaacsim.asset.importer.heightmap" = {}
+"isaacsim.asset.validation" = {}
 "isaacsim.examples.extension" = {}
 "isaacsim.examples.interactive" = {}
 "isaacsim.gui.components" = {}
 "isaacsim.examples.browser" = {}
 "isaacsim.replicator.behavior.ui" = {}
+"isaacsim.replicator.grasping.ui" = {}
 "isaacsim.replicator.scene_blox" = {}
 "isaacsim.replicator.synthetic_recorder" = {}
 "isaacsim.robot.manipulators.examples" = {}
@@ -55,8 +57,9 @@ keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in
 
 # Additional Kit extensions
 "omni.anim.curve.bundle" = {}
-"omni.anim.graph.schema" = {}
-"omni.anim.navigation.recast" = {}
+"omni.physx.asset_validator" = {}
+"omni.asset_validator.ui" = { order = 2000 }
+"omni.anim.navigation.meshtools" = {}
 "omni.anim.shared.core" = {}
 "omni.graph.bundle.action" = {}
 "omni.graph.visualization.nodes" = {}
@@ -69,7 +72,8 @@ keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in
 "omni.kit.browser.material" = {}
 "omni.kit.collaboration.channel_manager" = {}
 "omni.kit.context_menu" = {}
-"omni.kit.converter.cad" = { order = 200 }
+"omni.kit.converter.cad" = {order = 200, version = "203.2.1", exact = true}
+"omni.kit.widget.schema_api" = {}
 "omni.kit.graph.delegate.default" = {}
 "omni.kit.hotkeys.window" = {}
 "omni.kit.manipulator.transform" = {}
@@ -90,7 +94,6 @@ keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in
 "omni.kit.stage_column.variant" = {}
 "omni.kit.stage_templates" = {}
 "omni.kit.stagerecorder.bundle" = {}
-"omni.kit.thumbnails.usd" = {}
 "omni.kit.tool.asset_exporter" = {}
 "omni.kit.tool.remove_unused.controller" = {}
 "omni.kit.tool.remove_unused.core" = {}
@@ -125,11 +128,24 @@ keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in
 "omni.kit.window.stats" = { order = 1000 }
 "omni.kit.window.title" = {}
 "omni.kit.window.usd_paths" = {}
+"omni.physx.bundle" = {}
 "omni.resourcemonitor" = {}
 "omni.simready.explorer" = {}
 "omni.stats" = {}
 "omni.usd.metrics.assembler.physics" = {}
 "omni.usd.schema.scene.visualization" = {}
+
+
+# Added extensions
+"omni.sensors.net" = { version = "0.4.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.camera" = { version = "0.21.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.common" = { version = "2.7.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.ids" = { version = "1.5.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.lidar" = { version = "2.7.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.materials" = { version = "1.6.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.radar" = { version = "2.8.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.ultrasonic" = { version = "2.5.0-coreapi+8131b85d", exact = true }
+"omni.sensors.nv.wpm" = { version = "2.5.0-coreapi+8131b85d", exact = true }
 
 [settings]
 # default internal ros2 bridge distro to use if no ros2 distro is sourced
@@ -137,10 +153,15 @@ exts."isaacsim.ros2.bridge".ros_distro = "humble"
 
 [settings.app]
 name = "Isaac-Sim Full"
-version = "4.5.0"
+version = "5.0.0"
 file.ignoreUnsavedOnExit = false
 window.title = "Isaac Sim Full"
-vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+vulkan = true                          # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+enableDeveloperWarnings = false        # Disable developer warnings to reduce log noise
+runLoops.main.rateLimitEnabled = true  # Enable rate limiting, simulation runs at specified rendering rate (default 60 hz)
+runLoops.main.manualModeEnabled = true # Enable manual mode, dt is fixed at requested rate
+player.useFixedTimeStepping = true     # Disable fixed time stepping, dt is controlled by loop runner
+
 
 # set the default ros bridge to enable on startup
 [settings."filter:platform"."windows-x86_64"]
@@ -153,251 +174,274 @@ isaac.startup.ros_bridge_extension = "isaacsim.ros2.bridge"
     "${app}",
     "${app}/../exts",
     "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
 ]
 
 [settings.exts."omni.kit.registry.nucleus"]
 registries = [
-	{ name = "kit/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/106/shared" },
+	{ name = "kit/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/107/shared" },
 	{ name = "kit/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/${kit_version_short}/${kit_git_hash}" },
 	{ name = "kit/community", url = "https://dw290v42wisod.cloudfront.net/exts/kit/community" },
 ]
+
 
 ########################################################################################################################
 # BEGIN GENERATED PART (Remove from 'BEGIN' to 'END' to regenerate)
 ########################################################################################################################
 
-# Kit SDK Version: 106.5.0+release.162521.d02c707b.gl
+# Kit SDK Version: 107.3.1+production.206797.8131b85d.gl
 
 # Exact Version dependencies:
-# 	omni.convexdecomposition-106.5.7
-# 	omni.kit.property.physx-106.5.7
-# 	omni.kvdb-106.5.7
-# 	omni.localcache-106.5.7
-# 	omni.physics.tensors-106.5.7
-# 	omni.physx-106.5.7
-# 	omni.physx.camera-106.5.7
-# 	omni.physx.cct-106.5.7
-# 	omni.physx.commands-106.5.7
-# 	omni.physx.cooking-106.5.7
-# 	omni.physx.demos-106.5.7
-# 	omni.physx.foundation-106.5.7
-# 	omni.physx.graph-106.5.7
-# 	omni.physx.stageupdate-106.5.7
-# 	omni.physx.supportui-106.5.7
-# 	omni.physx.telemetry-106.5.7
-# 	omni.physx.ui-106.5.7
-# 	omni.physx.vehicle-106.5.7
-# 	omni.usd.schema.forcefield-106.5.7
-# 	omni.usd.schema.physx-106.5.7
-# 	omni.usdphysics-106.5.7
-# 	omni.usdphysics.ui-106.5.7
-# 	omni.warp.core-1.5.0
+# 	omni.kit.converter.cad-203.2.1
+# 	omni.sensors.net-0.4.0-coreapi
+# 	omni.sensors.nv.camera-0.21.0-coreapi
+# 	omni.sensors.nv.common-2.7.0-coreapi
+# 	omni.sensors.nv.ids-1.5.0-coreapi
+# 	omni.sensors.nv.lidar-2.7.0-coreapi
+# 	omni.sensors.nv.materials-1.6.0-coreapi
+# 	omni.sensors.nv.radar-2.8.0-coreapi
+# 	omni.sensors.nv.ultrasonic-2.5.0-coreapi
+# 	omni.sensors.nv.wpm-2.5.0-coreapi
 
 # Version lock for all dependencies:
 [settings.app.exts]
 enabled = [
-	"isaacsim.app.about-2.0.7",
-	"isaacsim.app.setup-1.3.5",
-	"isaacsim.asset.browser-1.3.4",
-	"isaacsim.asset.gen.omap-2.0.9",
-	"isaacsim.asset.gen.omap.ui-2.0.4",
-	"isaacsim.asset.importer.heightmap-2.0.3",
-	"isaacsim.asset.importer.mjcf-2.3.4",
-	"isaacsim.asset.importer.urdf-2.3.11",
-	"isaacsim.core.api-4.2.17",
-	"isaacsim.core.cloner-1.3.4",
-	"isaacsim.core.deprecation_manager-0.2.2",
-	"isaacsim.core.nodes-2.1.5",
-	"isaacsim.core.prims-0.3.7",
-	"isaacsim.core.simulation_manager-0.3.4",
-	"isaacsim.core.throttling-2.0.2",
-	"isaacsim.core.utils-2.2.8",
-	"isaacsim.core.version-2.0.2",
-	"isaacsim.cortex.behaviors-2.0.3",
-	"isaacsim.cortex.framework-1.0.2",
-	"isaacsim.examples.browser-0.1.8",
-	"isaacsim.examples.extension-2.0.6",
-	"isaacsim.examples.interactive-4.4.8",
-	"isaacsim.gui.components-1.0.9",
-	"isaacsim.gui.menu-2.0.9",
-	"isaacsim.gui.property-1.0.4",
-	"isaacsim.replicator.behavior-1.0.8",
-	"isaacsim.replicator.behavior.ui-1.0.1",
-	"isaacsim.replicator.domain_randomization-1.0.2",
-	"isaacsim.replicator.examples-1.1.2",
-	"isaacsim.replicator.scene_blox-1.0.2",
-	"isaacsim.replicator.synthetic_recorder-2.2.3",
-	"isaacsim.replicator.writers-1.0.1",
-	"isaacsim.robot.manipulators-3.0.4",
-	"isaacsim.robot.manipulators.examples-1.0.3",
-	"isaacsim.robot.manipulators.ui-2.1.4",
-	"isaacsim.robot.policy.examples-4.0.3",
-	"isaacsim.robot.schema-3.1.3",
-	"isaacsim.robot.surface_gripper-2.0.6",
-	"isaacsim.robot.surface_gripper.ui-2.1.1",
-	"isaacsim.robot.wheeled_robots-4.0.4",
-	"isaacsim.robot.wheeled_robots.ui-2.1.5",
-	"isaacsim.robot_motion.lula-4.0.4",
-	"isaacsim.robot_motion.lula_test_widget-1.0.5",
-	"isaacsim.robot_motion.motion_generation-8.0.6",
-	"isaacsim.robot_setup.assembler-2.1.5",
-	"isaacsim.robot_setup.gain_tuner-2.0.3",
-	"isaacsim.robot_setup.grasp_editor-2.0.5",
-	"isaacsim.robot_setup.xrdf_editor-3.1.5",
-	"isaacsim.sensors.camera-0.2.9",
-	"isaacsim.sensors.camera.ui-0.1.4",
-	"isaacsim.sensors.physics-0.3.6",
-	"isaacsim.sensors.physics.examples-0.1.4",
-	"isaacsim.sensors.physics.ui-0.1.2",
-	"isaacsim.sensors.physx-2.2.5",
-	"isaacsim.sensors.physx.examples-2.2.4",
-	"isaacsim.sensors.physx.ui-2.2.1",
-	"isaacsim.sensors.rtx-13.6.4",
-	"isaacsim.sensors.rtx.ui-0.1.2",
-	"isaacsim.simulation_app-2.4.2",
-	"isaacsim.storage.native-1.0.6",
-	"isaacsim.util.camera_inspector-1.0.4",
-	"isaacsim.util.debug_draw-2.0.3",
-	"isaacsim.util.merge_mesh-2.0.6",
-	"isaacsim.util.physics-1.1.2",
+	"isaacsim.app.about-2.0.11",
+	"isaacsim.app.setup-1.4.10",
+	"isaacsim.asset.browser-1.3.19",
+	"isaacsim.asset.gen.omap-2.0.28",
+	"isaacsim.asset.gen.omap.ui-2.2.1",
+	"isaacsim.asset.importer.heightmap-2.0.6",
+	"isaacsim.asset.importer.mjcf-2.5.8",
+	"isaacsim.asset.importer.urdf-2.4.19",
+	"isaacsim.asset.validation-1.0.3",
+	"isaacsim.core.api-4.6.10",
+	"isaacsim.core.cloner-1.4.9",
+	"isaacsim.core.deprecation_manager-0.2.7",
+	"isaacsim.core.experimental.materials-0.3.0",
+	"isaacsim.core.experimental.objects-0.2.4",
+	"isaacsim.core.experimental.prims-0.6.2",
+	"isaacsim.core.experimental.utils-0.2.0",
+	"isaacsim.core.nodes-3.2.16",
+	"isaacsim.core.prims-0.5.1",
+	"isaacsim.core.simulation_manager-1.3.2",
+	"isaacsim.core.throttling-2.1.10",
+	"isaacsim.core.utils-3.4.5",
+	"isaacsim.core.version-2.0.6",
+	"isaacsim.cortex.behaviors-2.0.12",
+	"isaacsim.cortex.framework-1.0.12",
+	"isaacsim.examples.browser-0.1.12",
+	"isaacsim.examples.extension-2.0.12",
+	"isaacsim.examples.interactive-4.6.10",
+	"isaacsim.gui.components-1.1.9",
+	"isaacsim.gui.content_browser-0.1.9",
+	"isaacsim.gui.menu-2.3.17",
+	"isaacsim.gui.property-1.1.3",
+	"isaacsim.gui.sensors.icon-2.0.3",
+	"isaacsim.replicator.behavior-1.1.14",
+	"isaacsim.replicator.behavior.ui-1.0.5",
+	"isaacsim.replicator.domain_randomization-1.0.16",
+	"isaacsim.replicator.examples-1.1.31",
+	"isaacsim.replicator.grasping-1.0.9",
+	"isaacsim.replicator.grasping.ui-1.0.8",
+	"isaacsim.replicator.scene_blox-1.0.8",
+	"isaacsim.replicator.synthetic_recorder-2.2.15",
+	"isaacsim.replicator.writers-1.0.15",
+	"isaacsim.robot.manipulators-3.3.5",
+	"isaacsim.robot.manipulators.examples-1.0.17",
+	"isaacsim.robot.manipulators.ui-2.1.22",
+	"isaacsim.robot.policy.examples-4.1.11",
+	"isaacsim.robot.schema-3.5.1",
+	"isaacsim.robot.surface_gripper-3.2.6",
+	"isaacsim.robot.surface_gripper.ui-3.0.2",
+	"isaacsim.robot.wheeled_robots-4.0.23",
+	"isaacsim.robot.wheeled_robots.ui-2.1.23",
+	"isaacsim.robot_motion.lula-4.0.8",
+	"isaacsim.robot_motion.lula_test_widget-1.0.12",
+	"isaacsim.robot_motion.motion_generation-8.0.25",
+	"isaacsim.robot_setup.assembler-3.0.8",
+	"isaacsim.robot_setup.gain_tuner-3.0.5",
+	"isaacsim.robot_setup.grasp_editor-2.0.18",
+	"isaacsim.robot_setup.xrdf_editor-3.1.11",
+	"isaacsim.sensors.camera-1.3.1",
+	"isaacsim.sensors.camera.ui-0.2.0",
+	"isaacsim.sensors.physics-0.3.27",
+	"isaacsim.sensors.physics.examples-0.1.15",
+	"isaacsim.sensors.physics.ui-0.1.12",
+	"isaacsim.sensors.physx-2.2.27",
+	"isaacsim.sensors.physx.examples-2.2.15",
+	"isaacsim.sensors.physx.ui-2.2.12",
+	"isaacsim.sensors.rtx-15.5.0",
+	"isaacsim.sensors.rtx.ui-1.1.4",
+	"isaacsim.simulation_app-2.9.2",
+	"isaacsim.storage.native-1.2.8",
+	"isaacsim.test.docstring-1.1.0",
+	"isaacsim.util.camera_inspector-1.0.15",
+	"isaacsim.util.debug_draw-3.1.0",
+	"isaacsim.util.merge_mesh-2.0.15",
+	"isaacsim.util.physics-1.1.5",
 	"omni.anim.curve.bundle-1.2.3",
-	"omni.anim.curve.core-1.2.0",
-	"omni.anim.curve.ui-1.4.0",
-	"omni.anim.graph.schema-106.5.0",
-	"omni.anim.navigation.core-106.4.0",
-	"omni.anim.navigation.recast-106.4.0",
-	"omni.anim.navigation.schema-106.4.0",
-	"omni.anim.shared.core-106.0.2",
-	"omni.graph.action-1.120.0",
-	"omni.graph.action_nodes-1.40.1",
-	"omni.graph.bundle.action-2.20.0",
-	"omni.graph.nodes-1.162.1",
-	"omni.graph.scriptnode-1.40.1",
-	"omni.graph.ui-1.91.0",
-	"omni.graph.ui_nodes-1.40.1",
-	"omni.graph.visualization.nodes-2.1.1",
-	"omni.graph.window.action-1.40.0",
-	"omni.graph.window.core-1.130.1",
-	"omni.graph.window.generic-1.40.0",
-	"omni.importer.onshape-0.8.1",
-	"omni.isaac.asset_browser-1.0.2",
-	"omni.isaac.assets_check-0.3.9",
-	"omni.isaac.block_world-2.0.2",
-	"omni.isaac.cloner-1.0.2",
-	"omni.isaac.core-4.0.3",
-	"omni.isaac.core_archive-2.3.3",
-	"omni.isaac.core_nodes-2.0.2",
-	"omni.isaac.cortex-1.0.2",
-	"omni.isaac.cortex.sample_behaviors-2.0.2",
-	"omni.isaac.dynamic_control-1.3.16",
-	"omni.isaac.extension_templates-2.0.2",
-	"omni.isaac.franka-1.0.2",
-	"omni.isaac.gain_tuner-2.0.2",
-	"omni.isaac.grasp_editor-2.0.2",
-	"omni.isaac.kit-2.0.3",
-	"omni.isaac.lula-4.0.2",
-	"omni.isaac.lula_test_widget-1.0.2",
-	"omni.isaac.manipulators-3.0.3",
-	"omni.isaac.menu-1.0.2",
-	"omni.isaac.ml_archive-2.1.2",
-	"omni.isaac.motion_generation-8.0.2",
-	"omni.isaac.nucleus-1.0.3",
-	"omni.isaac.occupancy_map-2.0.3",
-	"omni.isaac.occupancy_map.ui-2.0.3",
-	"omni.isaac.physics_inspector-0.1.7",
-	"omni.isaac.quadruped-3.0.2",
-	"omni.isaac.range_sensor-4.0.2",
-	"omni.isaac.range_sensor.examples-2.0.3",
-	"omni.isaac.range_sensor.ui-2.0.2",
-	"omni.isaac.robot_assembler-2.0.2",
-	"omni.isaac.robot_description_editor-3.0.2",
-	"omni.isaac.scene_blox-1.0.2",
-	"omni.isaac.sensor-13.0.3",
-	"omni.isaac.surface_gripper-2.0.2",
-	"omni.isaac.synthetic_recorder-2.0.2",
-	"omni.isaac.throttling-2.0.2",
-	"omni.isaac.universal_robots-1.0.2",
-	"omni.isaac.utils-2.0.2",
-	"omni.isaac.version-2.0.2",
-	"omni.isaac.wheeled_robots-3.0.3",
-	"omni.isaac.window.about-2.0.2",
-	"omni.kit.asset_converter-2.8.3",
-	"omni.kit.browser.asset-1.3.11",
-	"omni.kit.browser.core-2.3.11",
-	"omni.kit.browser.folder.core-1.10.1",
-	"omni.kit.browser.material-1.6.0",
-	"omni.kit.converter.cad-202.2.0",
-	"omni.kit.converter.common-503.2.1",
-	"omni.kit.converter.dgn-503.3.1",
-	"omni.kit.converter.dgn_core-503.3.2",
-	"omni.kit.converter.hoops-504.4.3",
-	"omni.kit.converter.hoops_core-504.4.1",
-	"omni.kit.converter.jt-503.2.2",
-	"omni.kit.converter.jt_core-503.2.2",
+	"omni.anim.curve.core-1.3.1",
+	"omni.anim.curve.ui-1.4.1",
+	"omni.anim.graph.schema-107.3.0",
+	"omni.anim.navigation.core-107.3.0",
+	"omni.anim.navigation.meshtools-107.3.0",
+	"omni.anim.navigation.schema-107.3.0",
+	"omni.anim.shared.core-107.0.1",
+	"omni.asset_validator.core-0.25.4",
+	"omni.asset_validator.ui-0.25.4",
+	"omni.convexdecomposition-107.3.18",
+	"omni.graph.action-1.130.0",
+	"omni.graph.action_nodes-1.50.4",
+	"omni.graph.action_nodes_core-1.1.0",
+	"omni.graph.bundle.action-2.30.0",
+	"omni.graph.nodes-1.170.10",
+	"omni.graph.nodes_core-1.1.0",
+	"omni.graph.scriptnode-1.50.0",
+	"omni.graph.ui-1.101.6",
+	"omni.graph.ui_nodes-1.50.5",
+	"omni.graph.visualization.nodes-2.1.3",
+	"omni.graph.window.action-1.50.2",
+	"omni.graph.window.core-2.0.0",
+	"omni.graph.window.generic-1.50.2",
+	"omni.importer.onshape-1.0.0",
+	"omni.isaac.asset_browser-1.0.6",
+	"omni.isaac.assets_check-0.3.13",
+	"omni.isaac.block_world-2.0.6",
+	"omni.isaac.cloner-1.0.7",
+	"omni.isaac.core-4.0.7",
+	"omni.isaac.core_archive-2.6.1",
+	"omni.isaac.core_nodes-2.0.6",
+	"omni.isaac.cortex-1.0.5",
+	"omni.isaac.cortex.sample_behaviors-2.0.5",
+	"omni.isaac.dynamic_control-2.0.7",
+	"omni.isaac.extension_templates-2.0.7",
+	"omni.isaac.franka-1.0.7",
+	"omni.isaac.gain_tuner-2.0.5",
+	"omni.isaac.grasp_editor-2.0.7",
+	"omni.isaac.kit-2.0.6",
+	"omni.isaac.lula-4.0.6",
+	"omni.isaac.lula_test_widget-1.0.6",
+	"omni.isaac.manipulators-3.0.7",
+	"omni.isaac.menu-1.0.6",
+	"omni.isaac.ml_archive-3.0.2",
+	"omni.isaac.motion_generation-8.0.7",
+	"omni.isaac.nucleus-1.0.6",
+	"omni.isaac.occupancy_map-2.0.8",
+	"omni.isaac.occupancy_map.ui-2.0.8",
+	"omni.isaac.physics_inspector-0.1.11",
+	"omni.isaac.quadruped-3.0.7",
+	"omni.isaac.range_sensor-4.0.6",
+	"omni.isaac.range_sensor.examples-2.0.6",
+	"omni.isaac.range_sensor.ui-2.0.5",
+	"omni.isaac.robot_assembler-2.0.8",
+	"omni.isaac.robot_description_editor-3.0.5",
+	"omni.isaac.scene_blox-1.0.6",
+	"omni.isaac.sensor-13.0.7",
+	"omni.isaac.surface_gripper-2.0.6",
+	"omni.isaac.synthetic_recorder-2.0.6",
+	"omni.isaac.throttling-2.0.7",
+	"omni.isaac.universal_robots-1.0.6",
+	"omni.isaac.utils-2.0.6",
+	"omni.isaac.version-2.0.7",
+	"omni.isaac.wheeled_robots-3.0.7",
+	"omni.isaac.window.about-2.0.7",
+	"omni.kit.asset_converter-4.1.4",
+	"omni.kit.browser.asset-1.3.12",
+	"omni.kit.browser.core-2.3.13",
+	"omni.kit.browser.folder.core-1.10.9",
+	"omni.kit.browser.material-1.6.2",
+	"omni.kit.converter.common-506.3.1",
+	"omni.kit.converter.dgn-508.0.1",
+	"omni.kit.converter.dgn_core-509.0.1",
+	"omni.kit.converter.hoops-508.0.1",
+	"omni.kit.converter.hoops_core-508.0.2",
+	"omni.kit.converter.jt-507.0.1",
+	"omni.kit.converter.jt_core-507.0.1",
 	"omni.kit.core.collection-0.2.0",
 	"omni.kit.graph.delegate.default-1.2.2",
 	"omni.kit.graph.delegate.modern-1.10.8",
 	"omni.kit.graph.editor.core-1.5.3",
 	"omni.kit.graph.usd.commands-1.3.1",
 	"omni.kit.graph.widget.variables-2.1.0",
-	"omni.kit.loop-isaac-1.2.2",
-	"omni.kit.menu.stage-1.2.5",
-	"omni.kit.mesh.raycast-105.4.0",
+	"omni.kit.loop-isaac-1.3.7",
+	"omni.kit.menu.stage-1.2.7",
+	"omni.kit.mesh.raycast-107.0.1",
 	"omni.kit.preferences.animation-1.2.0",
-	"omni.kit.profiler.window-2.3.1",
+	"omni.kit.profiler.window-2.3.5",
 	"omni.kit.property.collection-0.2.0",
-	"omni.kit.property.isaac-1.0.2",
-	"omni.kit.scripting-106.5.2",
+	"omni.kit.property.isaac-1.0.6",
+	"omni.kit.property.physx-107.3.18",
+	"omni.kit.scripting-107.3.1",
 	"omni.kit.search.files-1.0.4",
-	"omni.kit.stage_column.payload-2.0.0",
-	"omni.kit.stage_column.variant-1.0.13",
+	"omni.kit.stage_column.payload-2.0.3",
+	"omni.kit.stage_column.variant-1.0.17",
 	"omni.kit.stagerecorder.bundle-105.0.2",
-	"omni.kit.stagerecorder.core-105.0.5",
-	"omni.kit.stagerecorder.ui-105.0.6",
-	"omni.kit.thumbnails.usd-1.0.9",
-	"omni.kit.tool.asset_exporter-1.6.2",
-	"omni.kit.tool.asset_importer-2.12.2",
-	"omni.kit.tool.remove_unused.controller-0.1.3",
-	"omni.kit.tool.remove_unused.core-0.1.2",
-	"omni.kit.variant.editor-106.1.1",
+	"omni.kit.stagerecorder.core-107.0.3",
+	"omni.kit.stagerecorder.ui-107.0.1",
+	"omni.kit.tool.asset_exporter-3.1.1",
+	"omni.kit.tool.asset_importer-4.3.2",
+	"omni.kit.tool.remove_unused.controller-0.1.4",
+	"omni.kit.tool.remove_unused.core-0.1.3",
+	"omni.kit.variant.editor-107.3.0",
 	"omni.kit.variant.presenter-107.0.0",
-	"omni.kit.viewport.menubar.lighting-106.0.2",
-	"omni.kit.widget.calendar-1.0.8",
-	"omni.kit.widget.collection-0.1.18",
-	"omni.kit.widget.extended_searchfield-1.0.29",
+	"omni.kit.viewport.menubar.lighting-107.3.1",
+	"omni.kit.widget.calendar-1.0.9",
+	"omni.kit.widget.collection-0.2.3",
+	"omni.kit.widget.extended_searchfield-1.0.31",
 	"omni.kit.widget.material_preview-1.0.16",
-	"omni.kit.widget.timeline-105.0.1",
-	"omni.kit.widget.zoombar-1.0.5",
-	"omni.kit.widgets.custom-1.0.9",
-	"omni.kit.window.collection-0.2.0",
-	"omni.kit.window.material-1.6.2",
-	"omni.kit.window.material_graph-1.8.19",
+	"omni.kit.widget.schema_api-1.0.3",
+	"omni.kit.widget.timeline-107.0.1",
+	"omni.kit.widget.zoombar-1.0.6",
+	"omni.kit.widgets.custom-1.0.13",
+	"omni.kit.window.collection-0.2.3",
+	"omni.kit.window.material-1.6.3",
+	"omni.kit.window.material_graph-1.8.23",
 	"omni.kit.window.quicksearch-2.4.4",
-	"omni.physx.bundle-106.5.7",
-	"omni.physx.tensors-106.5.7",
-	"omni.pip.cloud-1.1.7",
-	"omni.pip.compute-1.4.5",
-	"omni.replicator.core-1.11.35",
-	"omni.replicator.isaac-2.0.3",
-	"omni.replicator.replicator_yaml-2.0.10",
-	"omni.scene.optimizer.core-106.1.10",
-	"omni.sensors.nv.common-2.5.0-coreapi",
-	"omni.sensors.nv.ids-1.4.0-coreapi",
-	"omni.sensors.nv.lidar-2.6.3-coreapi",
-	"omni.sensors.nv.materials-1.4.0-coreapi",
-	"omni.sensors.nv.radar-2.6.1-coreapi",
-	"omni.sensors.nv.wpm-2.4.0-coreapi",
-	"omni.sensors.tiled-0.0.6",
-	"omni.simready.explorer-1.1.1",
-	"omni.usd.metrics.assembler-106.5.0",
-	"omni.usd.metrics.assembler.physics-106.5.0",
-	"omni.usd.metrics.assembler.ui-106.5.0",
-	"omni.usd.schema.isaac-3.0.2",
-	"omni.usd.schema.metrics.assembler-106.5.0",
+	"omni.kvdb-107.3.18",
+	"omni.localcache-107.3.18",
+	"omni.physics-107.3.18",
+	"omni.physics.physx-107.3.18",
+	"omni.physics.stageupdate-107.3.18",
+	"omni.physics.tensors-107.3.18",
+	"omni.physx-107.3.18",
+	"omni.physx.asset_validator-107.3.18",
+	"omni.physx.bundle-107.3.18",
+	"omni.physx.camera-107.3.18",
+	"omni.physx.cct-107.3.18",
+	"omni.physx.commands-107.3.18",
+	"omni.physx.cooking-107.3.18",
+	"omni.physx.demos-107.3.18",
+	"omni.physx.foundation-107.3.18",
+	"omni.physx.graph-107.3.18",
+	"omni.physx.supportui-107.3.18",
+	"omni.physx.telemetry-107.3.18",
+	"omni.physx.tensors-107.3.18",
+	"omni.physx.ui-107.3.18",
+	"omni.physx.vehicle-107.3.18",
+	"omni.pip.cloud-1.3.6",
+	"omni.pip.compute-1.6.2",
+	"omni.replicator.core-1.12.17",
+	"omni.replicator.isaac-2.0.8",
+	"omni.replicator.replicator_yaml-2.0.11",
+	"omni.scene.optimizer.core-107.3.9",
+	"omni.simready.explorer-1.1.3",
+	"omni.usd.metrics.assembler-107.3.1",
+	"omni.usd.metrics.assembler.physics-107.3.18",
+	"omni.usd.metrics.assembler.ui-107.3.1",
+	"omni.usd.schema.flow-107.1.1",
+	"omni.usd.schema.isaac-3.0.5",
+	"omni.usd.schema.metrics.assembler-107.3.1",
+	"omni.usd.schema.physx-107.3.18",
 	"omni.usd.schema.scene.visualization-2.0.2",
-	"omni.warp-1.5.0",
-	"semantics.schema.editor-0.3.10",
-	"semantics.schema.property-1.0.5",
+	"omni.usdex.libs-1.0.2",
+	"omni.usdphysics-107.3.18",
+	"omni.usdphysics.ui-107.3.18",
+	"omni.warp-1.7.1",
+	"omni.warp.core-1.7.1",
+	"semantics.schema.editor-2.0.1",
+	"semantics.schema.property-2.0.1",
 ]
 
 ########################################################################################################################

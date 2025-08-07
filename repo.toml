@@ -28,7 +28,8 @@ fetch."platform:windows-x86_64".before_pull_commands = [
 
 vscode.python_env.PYTHONPATH= [
   "$$$${PYTHONPATH}",
-  "$root/_build/$platform/$config/kit/python/lib/python3.10/site-packages",
+  "$root/_build/$platform/$config/kit/python/lib/python3.11",
+  "$root/_build/$platform/$config/kit/python/lib/python3.11/site-packages",
   "$root/_build/$platform/$config/python_packages",
   "$root/_build/$platform/$config/extscache/isaacsim.simulation_app",
   "$root/_build/$platform/$config/kit/kernel/py",
@@ -45,8 +46,7 @@ vscode.python_env.PYTHONPATH= [
 vscode.python_env.PATH= [
   "$$$${PATH}",
   "$root/_build/$platform/$config",
-  "$root/_build/$platform/$config/extscache/isaacsim.robot.schema/plugins/IsaacSensorSchema/lib",
-  "$root/_build/$platform/$config/extscache/isaacsim.robot.schema/plugins/RangeSensorSchema/lib",
+  "$root/_build/$platform/$config/exts/isaacsim.robot.schema/plugins/lib",
   "$root/_build/$platform/$config/extscache/isaacsim.robot_motion.lula/pip_prebundle",
   "$root/_build/$platform/$config/extscache/isaacsim.asset.exporter.urdf/pip_prebundle",
   "$root/_build/$platform/$config/kit",
@@ -122,10 +122,14 @@ apps = [
     "${root}/source/apps/isaacsim.exp.full.fabric.kit",
     "${root}/source/apps/isaacsim.exp.full.kit",
     "${root}/source/apps/isaacsim.exp.full.streaming.kit",
+    "${root}/source/apps/isaacsim.exp.action_and_event_data_generation.base.kit",
+    "${root}/source/apps/isaacsim.exp.action_and_event_data_generation.full.kit",
+
+
 ]
 
 registries = [
-    { name = "kit/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/106/shared" },
+    { name = "kit/default", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/${kit_version_major}/shared" },
     { name = "kit/sdk", url = "https://ovextensionsprod.blob.core.windows.net/exts/kit/prod/sdk/${kit_version_short}/${kit_git_hash}" },
     { name = "kit/community", url = "https://dw290v42wisod.cloudfront.net/exts/kit/community" },
 ]
@@ -164,6 +168,7 @@ files_exclude = [
     ["logs/**"],
     ["apps/kit.portable"],
     ["**/__pycache__"],
+    ["**/_repo/**"],
 ]
 "linux-x86_64".files_strip = []
 
@@ -195,6 +200,7 @@ files_exclude = [
     ["logs/**"],
     ["apps/kit.portable"],
     ["**/__pycache__"],
+    ["**/_repo/**"],
 ]
 "linux-x86_64".files_strip = []
 

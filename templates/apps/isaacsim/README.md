@@ -57,7 +57,9 @@ Follow the prompt instructions:
 - **? Select with arrow keys your desired template:** Minimal Sim Application or Full Sim Application
 - **? Enter name of application .kit file [name-spaced, lowercase, alphanumeric]:** [set application name]
 - **? Enter application_display_name:** [set application display name]
-- **? Enter version:**: [set application version]
+- **? Enter version:** [set application version]
+- **? Do you want to add application layers?** Yes
+- **? Browse layers with arrow keys:** [select desired application layers]
 
 ### Build and Launch
 

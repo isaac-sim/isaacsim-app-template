@@ -49,7 +49,6 @@ type = "streaming"
 template = "isaacsim.exp.template.zero_delay"
 type = "zero_delay"
 
-
 # -- Application Layer templates --
 [templates."isaacsim.exp.template.fabric"]
 class = "ApplicationLayerTemplate"
@@ -57,6 +56,7 @@ name = "Fabric Enabled Config"
 url = "."
 subpath = "apps/isaacsim_configs/isaacsim.exp.template.fabric.kit"
 variables.version = "0.1.0"
+type = "fabric"
 
 [templates."isaacsim.exp.template.zero_delay"]
 class = "ApplicationLayerTemplate"
@@ -64,6 +64,7 @@ name = "Zero Delay"
 url = "."
 subpath = "apps/isaacsim_configs/isaacsim.exp.template.zero_delay.kit"
 variables.version = "0.1.0"
+type = "zero_delay"
 
 [templates."isaacsim.exp.template.ros2"]
 class = "ApplicationLayerTemplate"
@@ -71,6 +72,7 @@ name = "ROS2"
 url = "."
 subpath = "apps/isaacsim_configs/isaacsim.exp.template.ros2.kit"
 variables.version = "0.1.0"
+type = "ros2"
 
 [templates."isaacsim.exp.template.replicator"]
 class = "ApplicationLayerTemplate"
@@ -78,6 +80,7 @@ name = "Replicator"
 url = "."
 subpath = "apps/isaacsim_configs/isaacsim.exp.template.replicator.kit"
 variables.version = "0.1.0"
+type = "replicator"
 
 [templates."isaacsim.exp.template.streaming"]
 class = "ApplicationLayerTemplate"
@@ -85,12 +88,14 @@ name = "Streaming"
 url = "."
 subpath = "apps/isaacsim_configs/isaacsim.exp.template.streaming.kit"
 variables.version = "0.1.0"
+type = "streaming"
 
 [templates."omni_ovc_streaming"]
 class = "ApplicationLayerTemplate"
-name = "Omniverse Cloud Streaming"
+name = "Omniverse Cloud Streaming (Legacy)"
 url = "."
-subpath = "apps/streaming_configs/ovc_stream.kit"
+subpath = "apps/streaming_configs/ovc_stream_legacy.kit"
+type = "ovc_legacy"
 variables.version = "0.1.0"
 
 
@@ -104,6 +109,14 @@ variables.extension_name = "my_company.my_python_extension"
 variables.extension_display_name = "My Python Extension"
 variables.version = "0.1.0"
 
+[templates."basic_python_ui_extension"]
+class = "ExtensionTemplate"
+name = "Python UI Extension"
+url = "."
+subpath = "extensions/python_ui/template"
+variables.extension_name = "my_company.my_python_ui_extension"
+variables.extension_display_name = "My Python UI Extension"
+variables.version = "0.1.0"
 
 [templates."basic_cpp_extension"]
 class = "ExtensionTemplate"
@@ -114,12 +127,11 @@ variables.extension_name = "my_company.my_cpp_extension"
 variables.extension_display_name = "My C++ Extension"
 variables.version = "0.1.0"
 
-
-[templates."basic_python_ui_extension"]
-class = "ExtensionTemplate"
-name = "Python UI Extension"
+[templates."basic_python_binding"]
+class = "BindingExtensionTemplate"
+name = "Basic C++ w/ Python Binding Extension"
 url = "."
-subpath = "extensions/python_ui/template"
-variables.extension_name = "my_company.my_python_ui_extension"
-variables.extension_display_name = "My Python UI Extension"
+subpath = "extensions/basic_python_binding/template"
+variables.extension_name = "my_company.my_python_binding"
+variables.extension_display_name = "My Pybind11 Extension"
 variables.version = "0.1.0"
