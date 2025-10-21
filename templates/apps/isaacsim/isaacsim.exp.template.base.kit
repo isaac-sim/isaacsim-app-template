@@ -154,7 +154,16 @@ template_name = "sim_base"
 [settings.app.window]
 title = "{{ application_display_name }}"
 
-
+# Added extensions
+"omni.sensors.net" = {}
+"omni.sensors.nv.camera" = {}
+"omni.sensors.nv.common" = {}
+"omni.sensors.nv.ids" = {}
+"omni.sensors.nv.lidar" = {}
+"omni.sensors.nv.materials" = {}
+"omni.sensors.nv.radar" = {}
+"omni.sensors.nv.ultrasonic" = {}
+"omni.sensors.nv.wpm" = {}
 
 [settings]
 exts."omni.kit.material.library".ui_show_list = [
@@ -174,7 +183,7 @@ renderer.asyncInit = true # Don't block while renderer inits
 renderer.gpuEnumeration.glInterop.enabled = false # Improves startup speed.
 rtx-transient.dlssg.enabled = false # DLSSG frame generation is not compatible with synthetic data generation
 rtx.hydra.mdlMaterialWarmup = true # start loading the MDL shaders needed before any delegate is actually created.
-rtx.post.dlss.execMode = 3 # Set the DLSS model can be 0 (Performance), 1 (Balanced), 2 (Quality), or 3 (Auto)
+rtx.post.dlss.execMode = 0 # Set the DLSS model can be 0 (Performance), 1 (Balanced), 2 (Quality), or 3 (Auto)
 omni.replicator.asyncRendering = false # Async rendering must be disabled for SDG
 exts."omni.kit.test".includeTests = ["*isaac*"] # Add isaac tests to test runner
 foundation.verifyOsVersion.enabled = false
@@ -225,7 +234,7 @@ runLoops.main.manualModeEnabled = true           # Enable manual mode, dt is fix
 player.useFixedTimeStepping = false              # Disable fixed time stepping, dt is controlled by loop runner
 events.qualifiedNames = true                     # Enable qualified names for carb-events-2.0 observation api
 
-vulkan = true # Explicitly enable Vulkan (on by default on Linux, off by default on Windows)
+vulkan = true # Enable Vulkan by default for all platforms
 ### async rendering settings
 asyncRendering = false
 asyncRenderingLowLatency = false
@@ -283,18 +292,3 @@ renderer.startupMessageDisplayed = true # hides the IOMMU popup window
 resourcemonitor.timeBetweenQueries = 100 # improves performance
 simulation.defaultMetersPerUnit = 1.0 # Meters default
 omni.replicator.captureOnPlay = true
-
-
-[settings.persistent.isaac]
-asset_root.default = "https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0"
-[settings.exts."isaacsim.asset.browser"]
-folders = [
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Robots",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Environments",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/IsaacLab",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Materials",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/People",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Props",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Samples",
-    "http://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0/Isaac/Sensors",
-]

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2019-2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2019-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 
@@ -13,6 +13,9 @@ from pathlib import Path
 import packmanapi
 
 logger = logging.getLogger(__name__)
+
+if sys.version_info < (3, 10):
+    logger.warning("This version of repo_man currently requires Python 3.10 or later.")
 
 REPO_ROOT = os.path.join(os.path.dirname(os.path.normpath(__file__)), "../..")
 REPO_CACHE_FILE = os.path.join(REPO_ROOT, "repo-cache.json")

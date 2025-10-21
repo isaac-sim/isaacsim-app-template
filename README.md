@@ -4,6 +4,12 @@
   <img src="readme-assets/kit_app_template_banner.png" width=100% />
 </p>
 
+<br>
+
+> ## :warning: Version 5.1.0 is the final release of this project. Next release onwards it will be integrated into the open-source [Isaac Sim repository](https://github.com/isaac-sim/IsaacSim).
+
+<br>
+
 ## :memo: Feature Branch Information
 **This repository is based on a Feature Branch of the Omniverse Kit SDK.** Feature Branches are regularly updated and best suited for testing and prototyping.
 For stable, production-oriented development, please use the [Production Branch of the Kit SDK on NVIDIA GPU Cloud (NGC)](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/omniverse/collections/production_branch_december_2024).
@@ -48,6 +54,7 @@ This section guides you through creating your first Kit SDK-based Application us
 Please see [Kit App Template: Prerequisites and Environment Setup](https://github.com/NVIDIA-Omniverse/kit-app-template?tab=readme-ov-file#prerequisites-and-environment-setup)
 for more information on recommended software and system specifications.
 
+**Only x86_64 Windows/linux are supported. Aarch64 and arm64 platforms are not supported.**
 
 ### 1. Clone the Repository
 
